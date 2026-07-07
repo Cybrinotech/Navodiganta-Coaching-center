@@ -236,9 +236,46 @@
     .copyright{margin-top:34px;padding-top:18px;border-top:1px solid rgba(255,255,255,.13);text-align:center;color:rgba(255,255,255,.68);font-weight:650}
 
     /* WhatsApp floating */
-    .wa-float{position:fixed;right:22px;bottom:22px;width:60px;height:60px;border-radius:50%;z-index:999;display:grid;place-items:center;background:#25d366;color:#fff;font-size:31px;box-shadow:0 18px 32px rgba(37,211,102,.36);transition:.25s ease}
-    .wa-float:hover{transform:translateY(-4px) scale(1.05)}
+.wa-float{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  z-index:999;
+  display:grid;
+  place-items:center;
+  background:#25d366;
+  color:#fff;
+  box-shadow:0 18px 32px rgba(37,211,102,.36);
+  transition:.25s ease;
+}
 
+.wa-float svg{
+  width:32px;
+  height:32px;
+  display:block;
+}
+
+.wa-float:hover{
+  transform:translateY(-4px) scale(1.05);
+  box-shadow:0 22px 38px rgba(37,211,102,.45);
+}
+
+@media (max-width:620px){
+  .wa-float{
+    width:54px;
+    height:54px;
+    right:15px;
+    bottom:15px;
+  }
+
+  .wa-float svg{
+    width:29px;
+    height:29px;
+  }
+}
     /* Modal */
     .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(7,9,30,.62);z-index:2000;padding:18px}
     .modal.show{display:flex}
