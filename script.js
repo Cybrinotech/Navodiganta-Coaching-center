@@ -26,13 +26,42 @@ const pages=[...document.querySelectorAll('.page')];
     document.getElementById('modalClose').addEventListener('click',()=>modal.classList.remove('show'));
     modal.addEventListener('click',(e)=>{if(e.target===modal) modal.classList.remove('show')});
 
-    document.getElementById('applyForm').addEventListener('submit',function(e){
-      e.preventDefault();
-      const name=document.getElementById('studentName').value.trim();
-      const cls=document.getElementById('studentClass').value.trim();
-      const guardian=document.getElementById('guardianName').value.trim();
-      const phone=document.getElementById('phone').value.trim();
-      const msg=document.getElementById('message').value.trim();
-      const text=`নবদিগন্ত কোচিং সেন্টারে ভর্তি আবেদন%0A%0Aশিক্ষার্থীর নাম: ${encodeURIComponent(name)}%0Aশ্রেণি: ${encodeURIComponent(cls)}%0Aঅভিভাবকের নাম: ${encodeURIComponent(guardian)}%0Aমোবাইল নম্বর: ${encodeURIComponent(phone)}%0Aবার্তা: ${encodeURIComponent(msg || 'ভর্তি সম্পর্কিত তথ্য জানতে চাই।')}`;
-      window.open(`https://wa.me/918653258887?text=${text}`,'_blank');
-    });
+    const applyForm = document.getElementById('applyForm');
+
+if(applyForm){
+  applyForm.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const name = document.getElementById('studentName').value.trim();
+    const cls = document.getElementById('studentClass').value.trim();
+    const guardian = document.getElementById('guardianName').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const msg = document.getElementById('message').value.trim();
+
+    const phonePattern = /^[6-9]\d{9}$/;
+
+    if(!phonePattern.test(phone)){
+      alert("সঠিক ১০ সংখ্যার মোবাইল নম্বর দিন। উদাহরণ: 8653258887");
+      document.getElementById('phone').focus();
+      return;
+    }
+
+    const text =
+      `নবদিগন্ত কোচিং সেন্টারে ভর্তি আবেদন%0A%0A` +
+      `শিক্ষার্থীর নাম: ${encodeURIComponent(name)}%0A` +
+      `শ্রেণি: ${encodeURIComponent(cls)}%0A` +
+      `অভিভাবকের নাম: ${encodeURIComponent(guardian)}%0A` +
+      `মোবাইল নম্বর: ${encodeURIComponent(phone)}%0A` +
+      `বার্তা: ${encodeURIComponent(msg || 'ভর্তি সম্পর্কিত তথ্য জানতে চাই।')}`;
+
+    window.open(`https://wa.me/918653258887?text=${text}`, '_blank');
+  });
+}
+
+const phoneInput = document.getElementById('phone');
+
+if(phoneInput){
+  phoneInput.addEventListener('input', function(){
+    this.value = this.value.replace(/\D/g, '').slice(0, 10);
+  });
+}
