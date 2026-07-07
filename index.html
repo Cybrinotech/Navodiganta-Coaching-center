@@ -315,7 +315,18 @@
             <input class="field" id="studentName" placeholder="শিক্ষার্থীর নাম" required>
             <input class="field" id="studentClass" placeholder="শ্রেণি" required>
             <input class="field" id="guardianName" placeholder="অভিভাবকের নাম" required>
-            <input class="field" id="phone" placeholder="মোবাইল নম্বর" required>
+            
+            <input
+  class="field"
+  id="phone"
+  type="tel"
+  inputmode="numeric"
+  pattern="[6-9][0-9]{9}"
+  maxlength="10"
+  placeholder="১০ সংখ্যার মোবাইল নম্বর"
+  title="ভারতীয় ১০ সংখ্যার মোবাইল নম্বর দিন, যেমন 8653258887"
+  required
+>
             <textarea class="field" id="message" placeholder="বার্তা / কোন কোর্সে ভর্তি হতে চান"></textarea>
             <button class="btn btn-primary" type="submit">WhatsApp-এ আবেদন পাঠান ➜</button>
           </form>
