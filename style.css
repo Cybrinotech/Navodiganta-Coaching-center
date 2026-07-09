@@ -457,5 +457,20 @@
     font-size:18px;
   }
 }
+/* Lighthouse contrast fix */
+button.btn,
+a.btn{
+  background:#ffffff !important;
+  color:#7a0b3a !important;
+  border:2px solid #7a0b3a !important;
+  font-weight:900 !important;
+  text-shadow:none !important;
+}
 
+button.btn:hover,
+a.btn:hover{
+  background:#fff1f6 !important;
+  color:#5c082c !important;
+  border-color:#5c082c !important;
+}
 
