@@ -67,7 +67,7 @@ if(phoneInput){
 }
 
 /* =====================================================
-   STUDY MATERIAL SYSTEM
+   STUDY MATERIAL SYSTEM - SAFE PAGE BASED VERSION
 ===================================================== */
 
 const classData = [
@@ -110,30 +110,12 @@ const classData = [
 ];
 
 const subjectData = [
-  {
-    id: "bengali",
-    name: "বাংলা"
-  },
-  {
-    id: "english",
-    name: "English"
-  },
-  {
-    id: "geography",
-    name: "Geography"
-  },
-  {
-    id: "physics",
-    name: "Physics"
-  },
-  {
-    id: "math",
-    name: "Math"
-  },
-  {
-    id: "life-science",
-    name: "Life Science"
-  }
+  { id: "bengali", name: "বাংলা" },
+  { id: "english", name: "English" },
+  { id: "geography", name: "Geography" },
+  { id: "physics", name: "Physics" },
+  { id: "math", name: "Math" },
+  { id: "life-science", name: "Life Science" }
 ];
 
 /*
@@ -156,44 +138,19 @@ let currentClassId = "9";
 let currentSubjectId = "geography";
 
 function openPage(pageId){
-  const studyPages = document.querySelectorAll(".study-page-view");
-
-  document.body.classList.add("study-mode");
-
-  studyPages.forEach(function(page){
-    page.classList.remove("active");
-  });
-
-  if(pageId === "homePage"){
-    document.body.classList.remove("study-mode");
-
-    studyPages.forEach(function(page){
-      page.classList.remove("active");
+  if(typeof showPage === "function"){
+    showPage(pageId);
+  }else{
+    const allPages = document.querySelectorAll(".page");
+    allPages.forEach(function(page){
+      page.classList.toggle("active", page.id === pageId);
     });
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-    return;
-  }
-
-  const targetPage = document.getElementById(pageId);
-
-  if(targetPage){
-    targetPage.classList.add("active");
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 }
 
 function renderClassCards(){
   const classCardsArea = document.getElementById("classCardsArea");
-
   if(!classCardsArea) return;
 
   classCardsArea.innerHTML = classData.map(function(item){
@@ -212,7 +169,6 @@ function renderClassCards(){
 
 function renderSubjectTabs(){
   const subjectTabsArea = document.getElementById("subjectTabsArea");
-
   if(!subjectTabsArea) return;
 
   subjectTabsArea.innerHTML = subjectData.map(function(subject){
@@ -234,7 +190,6 @@ function renderSubjectTabs(){
       });
 
       this.classList.add("active");
-
       renderMaterials();
     });
   });
@@ -249,14 +204,13 @@ function openMaterialsPage(classId){
   });
 
   const selectedClassText = document.getElementById("selectedClassText");
-
   if(selectedClassText && selectedClass){
     selectedClassText.textContent = selectedClass.title;
   }
 
   renderSubjectTabs();
   renderMaterials();
-  openPage("materialsPage");
+  openPage("materials");
 }
 
 function getSubjectName(subjectId){
@@ -269,7 +223,6 @@ function getSubjectName(subjectId){
 
 function renderMaterials(){
   const materialArea = document.getElementById("materialArea");
-
   if(!materialArea) return;
 
   const matchedMaterials = materialsData.filter(function(item){
@@ -283,7 +236,6 @@ function renderMaterials(){
         <p>এই শ্রেণির ${getSubjectName(currentSubjectId)} study material শীঘ্রই add করা হবে।</p>
       </div>
     `;
-
     return;
   }
 
