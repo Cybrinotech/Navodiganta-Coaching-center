@@ -169,7 +169,7 @@
         <div class="gallery-caption">কোচিং সেন্টার</div>
       </article>
 
-      <article class="gallery-card placeholder study-gallery-card" onclick="openPage('studyPage')">
+      <article class="gallery-card placeholder study-gallery-card" onclick="openPage('study')">
   <div class="study-gallery-content">
     <span class="gallery-placeholder-text">স্টাডি ম্যাটেরিয়াল</span>
     <span class="study-mini-btn">Study</span>
@@ -187,67 +187,6 @@
   </div>
 </section>
 
-      <!-- ================= STUDY PAGE VIEW ================= -->
-<section class="study-page-view" id="studyPage">
-  <header class="study-page-header">
-    <div class="study-header-inner">
-      <div class="study-brand">
-        <img src="logo.webp" alt="নবদিগন্ত কোচিং সেন্টার">
-        <span>নবদিগন্ত কোচিং সেন্টার</span>
-      </div>
-
-      <button class="study-back-btn" onclick="openPage('homePage')">← হোমে ফিরুন</button>
-    </div>
-  </header>
-
-  <main class="study-page-main">
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title">ক্লাস অনুযায়ী পড়াশোনা</h2>
-        <div class="title-deco">★</div>
-
-        <div class="study-classes-grid" id="classCardsArea"></div>
-      </div>
-    </section>
-  </main>
-</section>
-
-
-<!-- ================= MATERIALS PAGE VIEW ================= -->
-<section class="study-page-view" id="materialsPage">
-  <header class="study-page-header">
-    <div class="study-header-inner">
-      <div class="study-brand">
-        <img src="logo.webp" alt="নবদিগন্ত কোচিং সেন্টার">
-        <span>নবদিগন্ত কোচিং সেন্টার</span>
-      </div>
-
-      <button class="study-back-btn" onclick="openPage('studyPage')">← ক্লাস লিস্টে ফিরুন</button>
-    </div>
-  </header>
-
-  <main class="study-page-main">
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title">স্টাডি ম্যাটেরিয়াল</h2>
-        <div class="title-deco">★</div>
-
-        <p class="study-materials-subtitle">
-          বিষয়ভিত্তিক নোটস, সাজেশন ও পড়াশোনার উপকরণ এখানে পাওয়া যাবে।
-        </p>
-
-        <div class="class-label">
-          <span id="selectedClassText">নবম শ্রেণি</span>
-        </div>
-
-        <div class="study-subject-tabs" id="subjectTabsArea"></div>
-
-        <div class="study-material-list" id="materialArea"></div>
-      </div>
-    </section>
-  </main>
-</section>
-
       <section class="section testimonials">
         <div class="container">
           <h2 class="section-title">অভিভাবক ও শিক্ষার্থীদের মতামত</h2>
@@ -259,6 +198,47 @@
           </div>
         </div>
       </section>
+    </section>
+
+
+    <section id="study" class="page">
+      <div class="page-hero">
+        <div class="container">
+          <h1>ক্লাস অনুযায়ী পড়াশোনা</h1>
+          <p>নিজের শ্রেণি নির্বাচন করে পড়াশোনার উপকরণ দেখুন।</p>
+        </div>
+      </div>
+
+      <div class="section study-page-body">
+        <div class="container">
+          <div class="study-classes-grid" id="classCardsArea"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="materials" class="page">
+      <div class="page-hero">
+        <div class="container">
+          <h1>স্টাডি ম্যাটেরিয়াল</h1>
+          <p>বিষয়ভিত্তিক নোটস, সাজেশন ও পড়াশোনার উপকরণ এখানে পাওয়া যাবে।</p>
+        </div>
+      </div>
+
+      <div class="section materials-page-body">
+        <div class="container">
+          <div class="class-label">
+            <span id="selectedClassText">নবম শ্রেণি</span>
+          </div>
+
+          <div class="study-subject-tabs" id="subjectTabsArea"></div>
+
+          <div class="study-material-list" id="materialArea"></div>
+
+          <div class="study-page-actions">
+            <button class="study-back-btn" onclick="openPage('study')">← ক্লাস লিস্টে ফিরুন</button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="about" class="page">
