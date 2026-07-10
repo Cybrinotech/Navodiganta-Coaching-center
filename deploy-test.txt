@@ -1,0 +1,6 @@
+CYBRINOTECH deployment test for Nabadiganta Coaching Center.
+
+This file is only used to check whether GitHub commit automatically triggers Vercel deployment.
+
+Date: 2026-07-10
+Status: Safe test file
