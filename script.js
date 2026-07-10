@@ -65,3 +65,263 @@ if(phoneInput){
     this.value = this.value.replace(/\D/g, '').slice(0, 10);
   });
 }
+
+/* =====================================================
+   STUDY MATERIAL SYSTEM
+===================================================== */
+
+const classData = [
+  {
+    id: "5",
+    title: "পঞ্চম শ্রেণি",
+    badge: "Class 5",
+    description: "সকল বিষয়ে নিয়মিত ক্লাস, নিয়মিত ক্লাস টেস্ট এবং উন্নতমানের স্টাডি ম্যাটেরিয়াল সহ সম্পূর্ণ পাঠদান।"
+  },
+  {
+    id: "6",
+    title: "ষষ্ঠ শ্রেণি",
+    badge: "Class 6",
+    description: "সকল বিষয়ে নিয়মিত ক্লাস, নিয়মিত ক্লাস টেস্ট এবং উন্নতমানের স্টাডি ম্যাটেরিয়াল সহ সম্পূর্ণ পাঠদান।"
+  },
+  {
+    id: "7",
+    title: "সপ্তম শ্রেণি",
+    badge: "Class 7",
+    description: "সকল বিষয়ে নিয়মিত ক্লাস, নিয়মিত ক্লাস টেস্ট এবং উন্নতমানের স্টাডি ম্যাটেরিয়াল সহ সম্পূর্ণ পাঠদান।"
+  },
+  {
+    id: "8",
+    title: "অষ্টম শ্রেণি",
+    badge: "Class 8",
+    description: "সকল বিষয়ে নিয়মিত ক্লাস, নিয়মিত ক্লাস টেস্ট এবং উন্নতমানের স্টাডি ম্যাটেরিয়াল সহ সম্পূর্ণ পাঠদান।"
+  },
+  {
+    id: "9",
+    title: "নবম শ্রেণি",
+    badge: "Class 9",
+    description: "সকল বিষয়ে নিয়মিত ক্লাস, নিয়মিত ক্লাস টেস্ট এবং উন্নতমানের স্টাডি ম্যাটেরিয়াল সহ সম্পূর্ণ পাঠদান।"
+  },
+  {
+    id: "10",
+    title: "দশম শ্রেণি",
+    badge: "Class 10",
+    description: "সকল বিষয়ে নিয়মিত ক্লাস, নিয়মিত ক্লাস টেস্ট এবং উন্নতমানের স্টাডি ম্যাটেরিয়াল সহ সম্পূর্ণ পাঠদান।"
+  }
+];
+
+const subjectData = [
+  {
+    id: "bengali",
+    name: "বাংলা"
+  },
+  {
+    id: "english",
+    name: "English"
+  },
+  {
+    id: "geography",
+    name: "Geography"
+  },
+  {
+    id: "physics",
+    name: "Physics"
+  },
+  {
+    id: "math",
+    name: "Math"
+  },
+  {
+    id: "life-science",
+    name: "Life Science"
+  }
+];
+
+/*
+  Future material add করার জায়গা শুধু এটা।
+  নতুন PDF/material add করতে হলে materialsData-র ভিতরে নতুন object add করবে।
+*/
+const materialsData = [
+  {
+    classId: "9",
+    subjectId: "geography",
+    title: "ভূগোল সাজেশন — পশ্চিমবঙ্গ",
+    description: "নবম শ্রেণি WBBSE Geography suggestion material.",
+    type: "PDF",
+    icon: "🌍",
+    file: "materials/geography-west-bengal-suggestion-class-9.pdf"
+  }
+];
+
+let currentClassId = "9";
+let currentSubjectId = "geography";
+
+function openPage(pageId){
+  const studyPages = document.querySelectorAll(".study-page-view");
+
+  document.body.classList.add("study-mode");
+
+  studyPages.forEach(function(page){
+    page.classList.remove("active");
+  });
+
+  if(pageId === "homePage"){
+    document.body.classList.remove("study-mode");
+
+    studyPages.forEach(function(page){
+      page.classList.remove("active");
+    });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+    return;
+  }
+
+  const targetPage = document.getElementById(pageId);
+
+  if(targetPage){
+    targetPage.classList.add("active");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+}
+
+function renderClassCards(){
+  const classCardsArea = document.getElementById("classCardsArea");
+
+  if(!classCardsArea) return;
+
+  classCardsArea.innerHTML = classData.map(function(item){
+    return `
+      <div class="study-class-card">
+        <span class="study-class-badge">${item.badge}</span>
+        <h3>${item.title}</h3>
+        <p>${item.description}</p>
+        <button class="study-now-btn" onclick="openMaterialsPage('${item.id}')">
+          পড়াশোনা করুন
+        </button>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderSubjectTabs(){
+  const subjectTabsArea = document.getElementById("subjectTabsArea");
+
+  if(!subjectTabsArea) return;
+
+  subjectTabsArea.innerHTML = subjectData.map(function(subject){
+    const activeClass = subject.id === currentSubjectId ? "active" : "";
+
+    return `
+      <button class="study-subject-tab ${activeClass}" data-subject="${subject.id}">
+        ${subject.name}
+      </button>
+    `;
+  }).join("");
+
+  document.querySelectorAll(".study-subject-tab").forEach(function(tab){
+    tab.addEventListener("click", function(){
+      currentSubjectId = this.dataset.subject;
+
+      document.querySelectorAll(".study-subject-tab").forEach(function(item){
+        item.classList.remove("active");
+      });
+
+      this.classList.add("active");
+
+      renderMaterials();
+    });
+  });
+}
+
+function openMaterialsPage(classId){
+  currentClassId = classId;
+  currentSubjectId = "geography";
+
+  const selectedClass = classData.find(function(item){
+    return item.id === currentClassId;
+  });
+
+  const selectedClassText = document.getElementById("selectedClassText");
+
+  if(selectedClassText && selectedClass){
+    selectedClassText.textContent = selectedClass.title;
+  }
+
+  renderSubjectTabs();
+  renderMaterials();
+  openPage("materialsPage");
+}
+
+function getSubjectName(subjectId){
+  const subject = subjectData.find(function(item){
+    return item.id === subjectId;
+  });
+
+  return subject ? subject.name : subjectId;
+}
+
+function renderMaterials(){
+  const materialArea = document.getElementById("materialArea");
+
+  if(!materialArea) return;
+
+  const matchedMaterials = materialsData.filter(function(item){
+    return item.classId === currentClassId && item.subjectId === currentSubjectId;
+  });
+
+  if(matchedMaterials.length === 0){
+    materialArea.innerHTML = `
+      <div class="study-empty-box">
+        <h3>${getSubjectName(currentSubjectId)}</h3>
+        <p>এই শ্রেণির ${getSubjectName(currentSubjectId)} study material শীঘ্রই add করা হবে।</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  materialArea.innerHTML = matchedMaterials.map(function(item){
+    const selectedClass = classData.find(function(cls){
+      return cls.id === item.classId;
+    });
+
+    const selectedSubject = subjectData.find(function(sub){
+      return sub.id === item.subjectId;
+    });
+
+    return `
+      <div class="study-material-card">
+        <div class="study-material-icon">${item.icon || "📘"}</div>
+
+        <div class="study-material-content">
+          <h3>${item.title}</h3>
+          <p>${item.description}</p>
+          <span>
+            ${item.type || "Material"} • ${selectedClass ? selectedClass.badge : ""} • ${selectedSubject ? selectedSubject.name : ""}
+          </span>
+        </div>
+
+        <div class="study-material-actions">
+          <a href="${item.file}" target="_blank" class="study-material-btn primary">
+            View PDF
+          </a>
+
+          <a href="${item.file}" download class="study-material-btn secondary">
+            Download
+          </a>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+renderClassCards();
+renderSubjectTabs();
+renderMaterials();
